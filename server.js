@@ -27,7 +27,18 @@ if (!config.baseURL && !process.env.BASE_URL && process.env.PORT && process.env.
   config.baseURL = `http://localhost:${port}`;
 }
 
-app.use(auth(config));
+// app.use(auth(config));
+app.use(
+  auth({
+    authRequired: false,
+    auth0Logout: true,
+    authorizationParams: {
+      response_type: 'code', // This requires you to provide a client secret
+      audience: 'https://api.example.com/products',
+      scope: 'openid profile email read:products',
+    },
+  })
+);
 
 // Middleware to make the `user` object available for all views
 app.use(function (req, res, next) {
