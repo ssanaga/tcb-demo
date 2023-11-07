@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {%- auth0:head -%}
+    <title>Log In - Auth0</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .blue-side {
+            flex: 45%;
+            background-color: #050033;
+            background-image: url("https://ssowmya.s3.us-east-2.amazonaws.com/TCB.png");
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-repeat: no-repeat;
+        }
+
+        .gray-side {
+            flex: 3;
+            background-color: #fff;
+        }
+
+        @media (max-width: 1000px) {
+            .blue-side {
+                display: none;
+            }
+        }
+
+        .py-4 {
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+
+        .w-50 {
+            width: 50% !important;
+        }
+
+        img,
+        svg {
+            vertical-align: middle;
+        }
+
+        /* Styles for card like elements (e.g. success/error alert, demo link) */
+        div.card {
+            width: 400px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+
+        #widget {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        body .login-container .content-column {
+            width: 100%;
+            height: 100%;
+        }
+
+        .Button {
+            border: 0.125rem solid transparent;
+            border-radius: 0.25rem;
+            box-sizing: border-box !important;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Ameriprise Sans, Arial, sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.031rem;
+            padding: 0.563rem 0.938rem 0.5rem;
+            text-align: center;
+        }
+
+        .new-user {
+            text-align: left;
+        }
+
+        .blue-link {
+            color: #2583E3;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            line-height: 1.5;
+        }
+
+        .auth0Logo {
+            filter: invert(100%);
+        }
+
+        .email-contact {
+            list-style-type: disc;
+            /* Adds bullet points */
+            padding-left: 20px;
+            /* Adjust the space between bullet and text */
+        }
+
+        .email-contact strong {
+            font-weight: bold;
+            /* Makes the email addresses bold */
+        }
+
+        .otp-login {
+            background-color: transparent !important;
+            width: 400px;
+            padding: 4px 16px;
+            margin-bottom: 8px;
+            min-height: 52px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+            outline: none;
+            cursor: pointer;
+            /* color: #fff; */
+            border: 1px solid #C9CACE;
+            border-radius: 3px;
+        }
+
+        #error-message {
+            color: red;
+        }
+    </style>
+    <div class="container">
+        <div class="blue-side">
+            <div class="col-md-5 col-sm-12 bg-primary d-flex justify-content-center align-items-center py-4">
+
+            </div>
+            <!-- Other content for blue side -->
+        </div>
+        <div class="gray-side">
+            <!-- Other content for gray side -->
+            <div id="widget">
+                {%- auth0:widget -%}
+
+                <a href="http://localhost:3000/forgotUsername" class="underline-text">Forgot Username</a>
+                <p id="error-message"></p>
+                <div class="empty-paragraph-div">
+                    <p></p>
+                </div>
+
+                {% if application.id == 'wnuJ9fTrEuL5DsjGFs8WKsfLuO2M0NG2' %}
+                <div>
+                    <img src="https://ssowmya.s3.us-east-2.amazonaws.com/TCB-help.png">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script>
+        const usernameInput = document.querySelector('input[id="username"]');
+        const errorMessage = document.getElementById("error-message");
+
+        // Attach an 'input' event listener to the username input field
+        usernameInput.addEventListener("input", function () {
+            // Regular expression to match email format
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            // Check if username is in email format
+            if (emailPattern.test(this.value)) {
+                // Display an error message
+                //alert("Invalid format: Username should not be in email format.");
+                errorMessage.textContent = "Invalid format: Username should not be in email format.";
+            } else {
+                errorMessage.textContent = "";
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
